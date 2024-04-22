@@ -33,6 +33,9 @@ steps:
   inputs:
     restoreSolution: '**/*.iOS.csproj'
 
+- script: |
+    dotnet restore
+
 - task: XamariniOS@2
   inputs:
     solutionFile: '**/*.iOS.csproj'
