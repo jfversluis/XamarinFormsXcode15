@@ -17,6 +17,12 @@ steps:
     packageType: 'sdk'
     version: '5.0.400'
 
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '**/*.iOS.csproj'
+
 - script: |
     dotnet restore
 
