@@ -1,8 +1,3 @@
-# Xamarin.iOS
-# Build a Xamarin.iOS project.
-# Add steps that install certificates, test, sign, and distribute an app, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
-
 trigger:
 - main
 
@@ -10,13 +5,8 @@ pool:
   vmImage: 'macos-13'
 
 steps:
-# To manually select a Xamarin SDK version on the Microsoft-hosted macOS agent,
-# configure this task with the *Mono* version that is associated with the
-# Xamarin SDK version that you need, and set the "enabled" property to true.
-# See https://go.microsoft.com/fwlink/?linkid=871629
-- script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 5_12_0
-  displayName: 'Select the Xamarin SDK version'
-  enabled: false
+- script: /bin/bash -c "sudo xcode-select -s /Applications/Xcode_15.0.1.app/Contents/Developer"
+  displayName: 'Select Xcode 15'
 
 - script: |
     dotnet tool install --global boots
@@ -26,12 +16,6 @@ steps:
   inputs:
     packageType: 'sdk'
     version: '5.0.400'
-
-- task: NuGetToolInstaller@1
-
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '**/*.iOS.csproj'
 
 - script: |
     dotnet restore
