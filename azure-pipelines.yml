@@ -22,10 +22,15 @@ steps:
     dotnet tool install --global boots
     boots --stable Xamarin.iOS
 
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '**/*.iOS.csproj'
+
 - task: XamariniOS@2
   inputs:
     solutionFile: '**/*.iOS.csproj'
     configuration: 'Release'
-    packageApp: false
     buildForSimulator: true
-    runNugetRestore: true
+    packageApp: false
